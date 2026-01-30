@@ -3,10 +3,10 @@ class ParameterizedConstructor
     int id;
     String name;
 
-    ParameterizedConstructor(int i, String n)
+    ParameterizedConstructor(int id, String name)
     {
-        id = i;
-        name = n;
+        this.id = id;
+        this.name = name;
     }
 
     public void display()
