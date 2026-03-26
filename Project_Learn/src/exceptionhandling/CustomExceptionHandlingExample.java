@@ -1,0 +1,6 @@
+package exceptionhandling;
+
+class CustomExceptionHandlingExample
+{
+    
+}
