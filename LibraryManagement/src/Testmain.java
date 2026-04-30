@@ -1,7 +1,7 @@
 import DOA.BookDOA;
 import DOA.IssueDOA;
 import DOA.UserDOA;
-import utils.DBConnection;
+import model.DBsetup;
 import utils.PrintResultSet;
 
 import java.sql.ResultSet;
@@ -15,44 +15,12 @@ public class Testmain {
     private static final BookDOA bookDAO = new BookDOA();
     private static final UserDOA userDAO = new UserDOA();
     private static final IssueDOA issueDAO = new IssueDOA();
-    private static final DBConnection db = new DBConnection();
+    private static final DBsetup setup = new DBsetup();
 
-    public static void main(String[] args) {
-        createTablesIfNotExists();
+    public static void main(String[] args) 
+    {
+        setup.initialize();
         runMenuLoop();
-    }
-
-    private static void createTablesIfNotExists() {
-        db.execute(
-                "CREATE TABLE IF NOT EXISTS books (" +
-                        "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        "title TEXT NOT NULL, " +
-                        "author TEXT NOT NULL, " +
-                        "availableCopies INTEGER NOT NULL" +
-                        ");"
-        );
-
-        db.execute(
-                "CREATE TABLE IF NOT EXISTS users (" +
-                        "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        "name TEXT NOT NULL, " +
-                        "contact TEXT NOT NULL" +
-                        ");"
-        );
-
-        db.execute(
-                "CREATE TABLE IF NOT EXISTS issues (" +
-                        "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        "book_id INTEGER, " +
-                        "user_id INTEGER, " +
-                        "issue_date DATE, " +
-                        "return_date DATE, " +
-                        "status TEXT, " +
-                        "CHECK (status IN ('issued', 'returned')), " +
-                        "FOREIGN KEY (book_id) REFERENCES books(id), " +
-                        "FOREIGN KEY (user_id) REFERENCES users(id)" +
-                        ");"
-        );
     }
 
     private static void runMenuLoop() {
